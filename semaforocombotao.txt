@@ -1,0 +1,64 @@
+const int carroVermelho = 12;
+const int carroAmarelo = 11;
+const int carroVerde = 10;
+const int pedestreVermelho = 5;
+const int pedestreVerde = 4;
+int botao = 3;
+
+
+void setup()
+{
+  pinMode(carroVermelho, OUTPUT);
+  pinMode(carroAmarelo, OUTPUT);
+  pinMode(carroVerde, OUTPUT);
+  pinMode(pedestreVermelho, OUTPUT);
+  pinMode(botao, INPUT);
+  digitalWrite(carroVerde, HIGH);
+  digitalWrite(pedestreVermelho, HIGH);
+  
+}
+
+
+void loop()
+{
+  int pedestreAcionouBotao = digitalRead(botao);
+  
+  if (pedestreAcionouBotao == HIGH) {  //botao foi pressionado
+  
+    digitalWrite(carroVerde, LOW); //desliga o verde para o carro
+	
+	for (int i=0; i<=3; i++){      //liga o amarelo piscante para o carro
+      digitalWrite(carroAmarelo, HIGH); 
+      delay(300);
+	  digitalWrite(carroAmarelo, LOW);
+	  delay(300);
+    }  
+	
+    digitalWrite(carroVermelho, HIGH);  //liga o vermelho para o carro
+    delay(1000);
+	digitalWrite(pedestreVermelho, LOW);  //desliga o vermelho para o pedestre
+	digitalWrite(pedestreVerde, HIGH);    //liga o verde para o pedestre
+	delay(6000);
+	
+	for (int i=0; i<=8; i++){	//pisca o verde para o pedestre
+	  digitalWrite(pedestreVerde, HIGH);
+	  delay(300);
+	  digitalWrite(pedestreVerde, LOW);
+	  delay(300);
+	}
+	
+	digitalWrite(pedestreVermelho, HIGH);  //liga o vermelho para o pedestre
+	digitalWrite(carroVermelho, LOW);	  //desliga o vermelho para o carro
+	
+	for (int i=0; i<=3; i++){      // pisca o amarelo para o carro
+      digitalWrite(carroAmarelo, HIGH);
+      delay(300);
+	  digitalWrite(carroAmarelo, LOW);
+	  delay(300);
+    }
+
+	digitalWrite(carroVerde, HIGH);  //liga o verde para o carro
+	
+  }
+  
+}
